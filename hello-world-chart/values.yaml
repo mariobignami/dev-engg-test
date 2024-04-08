@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: hello-world-app
+  repository: supervisor299/devops-test
   pullPolicy: IfNotPresent
   tag: "latest"
 
