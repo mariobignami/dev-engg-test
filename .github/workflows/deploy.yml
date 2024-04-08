@@ -1,26 +1,18 @@
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the "development" branch
   push:
     branches: [ "development" ]
-
-  # Also triggers the workflow when a pull request to "development" is created or updated
   pull_request:
-    branches: [ "development" ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [ "development", "main" ]
   workflow_dispatch:
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
@@ -28,10 +20,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: supervisor299/devops-test:latest
+      - name: Build the Docker image
+        run: docker build -t supervisor299/devops-test:latest .
+
+      - name: Push the Docker image
+        run: docker push supervisor299/devops-test:latest
