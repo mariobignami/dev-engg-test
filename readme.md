@@ -47,3 +47,4 @@ kubectl apply -f hello-deployment.yaml
    helm install hello-world-app ./hello-world-chart
 
 ## TEST
+## Test the application by visiting http://localhost:5000 in your web browser.
