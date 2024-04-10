@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build -t supervisor299/devops-test:latest .
+        run: docker build -t 002631/devops-test:latest .
 
       - name: Push the Docker image
-        run: docker push supervisor299/devops-test:latest
+        run: docker push 002631/devops-test:latest
