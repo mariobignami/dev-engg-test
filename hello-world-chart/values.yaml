@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: supervisor299/devops-test
+  repository: 002631/devops-test
   pullPolicy: IfNotPresent
   tag: "latest"
 
