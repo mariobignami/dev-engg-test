@@ -10,6 +10,8 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    env:
+      cluster_name: node-demo-k8s
     steps:
       - uses: actions/checkout@v3
 
@@ -50,7 +52,7 @@ jobs:
 
       - name: Get K8s credentials
         run: |
-          gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
+          gcloud container clusters get-credentials ${{ env.cluster_name }} --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Helm Upgrade/Install
         run: |
