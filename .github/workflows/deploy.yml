@@ -44,11 +44,12 @@ jobs:
       - name: Install Helm
         run: |
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
       - name: Get K8s credentials
         run: |
           gcloud container clusters get-credentials flask-demo-k8s --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
-
+      - name: Get K8s credentials
+        run: |
+          gcloud container clusters get-credentials flask-demo-k8s --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
       - name: Helm Upgrade/Install
         run: |
           helm upgrade --install hello-world-app ./hello-world-chart \
