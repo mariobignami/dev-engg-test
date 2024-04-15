@@ -5,12 +5,8 @@
 replicaCount: 1
 
 image:
-<<<<<<< HEAD
   repository: 002631/devops-test
-=======
-  repository: supervisor299/hello-world-app
->>>>>>> upstream/main
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
 
 imagePullSecrets: []
@@ -59,7 +55,7 @@ readinessProbe:
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 10
   targetCPUUtilizationPercentage: 80
 
 volumes: []
