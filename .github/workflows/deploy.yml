@@ -45,6 +45,9 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
+      - name: Install GKE gcloud Auth Plugin
+        run: gcloud components install gke-gcloud-auth-plugin
+
       - name: Get K8s credentials
         run: |
           gcloud container clusters get-credentials flask-demo-k8s --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
