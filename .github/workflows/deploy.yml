@@ -20,7 +20,41 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build -t 002631/devops-test:latest .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:${{ github.sha }} .
 
       - name: Push the Docker image
-        run: docker push 002631/devops-test:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:${{ github.sha }}
+
+  deploy-to-kubernetes:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.5.0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          export_default_credentials: true
+
+      - name: Configure Docker for Google Container Registry
+        run: gcloud auth configure-docker
+
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      - name: Install GKE gcloud Auth Plugin
+        run: gcloud components install gke-gcloud-auth-plugin
+
+      - name: Get K8s credentials
+        run: |
+          gcloud container clusters get-credentials ${{ secrets.GCP_PROJECT_ID }} --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Helm Upgrade/Install
+        run: |
+          helm upgrade --install hello-world-app ./hello-world-chart \
+            --namespace default \
+            --set image.repository=${{ secrets.DOCKER_USERNAME }}/devops-test \
+            --set image.tag=${{ github.sha }}

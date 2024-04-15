@@ -19,7 +19,7 @@ provider "google" {
 
 variable "project_name" {
   type = string
-  default = "eng-skyline-420011"
+  default = "ultimate-app-gcp"
   description = "Service Project Name"
 }
 
