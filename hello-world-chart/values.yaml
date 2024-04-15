@@ -5,7 +5,11 @@
 replicaCount: 1
 
 image:
+<<<<<<< HEAD
   repository: 002631/devops-test
+=======
+  repository: supervisor299/hello-world-app
+>>>>>>> upstream/main
   pullPolicy: IfNotPresent
   tag: "latest"
 
@@ -26,7 +30,7 @@ podSecurityContext: {}
 securityContext: {}
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 5000
 
 ingress:

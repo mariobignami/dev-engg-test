@@ -1,16 +1,15 @@
-name: CI
+name: CI-CD Pipeline
 
 on:
   push:
-    branches: [ "development" ]
+    branches: [ "main", "development" ]  # Trigger on pushes to main and development branches
   pull_request:
-    branches: [ "development", "main" ]
+    branches: [ "main", "development" ]
   workflow_dispatch:
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -21,7 +20,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build -t 002631/devops-test:latest .
+        run: docker build -t supervisor299/devops-test:latest .
 
       - name: Push the Docker image
-        run: docker push 002631/devops-test:latest
+        run: docker push supervisor299/devops-test:latest
