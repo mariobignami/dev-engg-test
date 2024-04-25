@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Welcome to the Flask App! Use /files to list files and /hello for a greeting."
+    return "Welcome to the Flask App! Use /files to list files and /hello for a greeting.    teste2"
 
 
 @app.route('/files', methods=['GET'])
