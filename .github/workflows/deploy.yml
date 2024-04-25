@@ -55,6 +55,6 @@ jobs:
       - name: Helm Upgrade/Install
         run: |
           helm upgrade --install hello-world-app ./hello-world-chart \
-            --namespace default \
+            --namespace hello-app-namespace \
             --set image.repository=${{ secrets.DOCKER_USERNAME }}/devops-test \
             --set image.tag=${{ github.sha }}
