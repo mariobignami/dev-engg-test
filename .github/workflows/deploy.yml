@@ -20,10 +20,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:${{ github.sha }} .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:latest
 
       - name: Push the Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:latest
 
   deploy-to-kubernetes:
     needs: build-and-push
@@ -60,4 +60,4 @@ jobs:
           helm upgrade --install hello-world-app ./hello-world-chart \
             --namespace hello-app-namespace \
             --set image.repository=${{ secrets.DOCKER_USERNAME }}/devops-test \
-            --set image.tag=${{ github.sha }}
+            --set image.tag=latest
