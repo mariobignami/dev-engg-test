@@ -20,10 +20,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:${{ github.sha }} .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:prod-version
 
       - name: Push the Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:${{ github.sha }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:prod-version
 
   deploy-to-kubernetes:
     needs: build-and-push

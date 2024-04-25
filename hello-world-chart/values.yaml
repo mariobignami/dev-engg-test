@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: 002631/devops-test
   pullPolicy: Always
-  tag: "latest"
+  tag: "prod-version"
 
 imagePullSecrets: []
 nameOverride: ""
