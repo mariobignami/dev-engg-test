@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:prod-version
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:prod-version .
 
       - name: Push the Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:prod-version
@@ -60,4 +60,4 @@ jobs:
           helm upgrade --install hello-world-app ./hello-world-chart \
             --namespace hello-app-namespace \
             --set image.repository=${{ secrets.DOCKER_USERNAME }}/devops-test \
-            --set image.tag=latest
+            --set image.tag=prod-version
