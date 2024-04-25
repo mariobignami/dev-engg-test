@@ -2,9 +2,9 @@ name: CI-CD Pipeline
 
 on:
   push:
-    branches: [ "main", "development" ]  # Trigger on pushes to main and development branches
+    branches: [ "main"]
   pull_request:
-    branches: [ "main", "development" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -51,6 +51,9 @@ jobs:
       - name: Get K8s credentials
         run: |
           gcloud container clusters get-credentials node-demo-k8s --zone us-central1-c --project ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Create namespace
+        run: kubectl create namespace hello-app-namespace
 
       - name: Helm Upgrade/Install
         run: |
